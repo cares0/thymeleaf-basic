@@ -1,6 +1,7 @@
 package hello.thymeleaf.basic;
 
 import lombok.Data;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.sql.ClientInfoStatus;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,6 +94,21 @@ public class BasicController {
     @GetMapping("/attribute")
     public String attribute() {
         return "basic/attribute";
+    }
+
+    @GetMapping("/each")
+    public String each(Model model) {
+        addUsers(model);
+        return "basic/each";
+    }
+
+    private void addUsers(Model model) {
+        List<User> list = new ArrayList<>();
+        list.add(new User("UserA", 10));
+        list.add(new User("UserB", 20));
+        list.add(new User("UserC", 30));
+
+        model.addAttribute("users", list);
     }
 
 
